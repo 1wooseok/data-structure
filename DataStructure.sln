@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataStructure", "DataStructure.vcxproj", "{49FE16EF-08CF-4B61-9A29-7FC57AFB6847}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sorting", "DataStructure.vcxproj", "{49FE16EF-08CF-4B61-9A29-7FC57AFB6847}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyString", "..\MyString\MyString.vcxproj", "{95EE748A-073A-457E-BEB5-9FC4FE4C9B63}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sorting", "Sorting", "{9BD1E302-52C8-4CFA-B051-40E98A20B2F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,17 +23,12 @@ Global
 		{49FE16EF-08CF-4B61-9A29-7FC57AFB6847}.Release|x64.Build.0 = Release|x64
 		{49FE16EF-08CF-4B61-9A29-7FC57AFB6847}.Release|x86.ActiveCfg = Release|Win32
 		{49FE16EF-08CF-4B61-9A29-7FC57AFB6847}.Release|x86.Build.0 = Release|Win32
-		{95EE748A-073A-457E-BEB5-9FC4FE4C9B63}.Debug|x64.ActiveCfg = Debug|x64
-		{95EE748A-073A-457E-BEB5-9FC4FE4C9B63}.Debug|x64.Build.0 = Debug|x64
-		{95EE748A-073A-457E-BEB5-9FC4FE4C9B63}.Debug|x86.ActiveCfg = Debug|Win32
-		{95EE748A-073A-457E-BEB5-9FC4FE4C9B63}.Debug|x86.Build.0 = Debug|Win32
-		{95EE748A-073A-457E-BEB5-9FC4FE4C9B63}.Release|x64.ActiveCfg = Release|x64
-		{95EE748A-073A-457E-BEB5-9FC4FE4C9B63}.Release|x64.Build.0 = Release|x64
-		{95EE748A-073A-457E-BEB5-9FC4FE4C9B63}.Release|x86.ActiveCfg = Release|Win32
-		{95EE748A-073A-457E-BEB5-9FC4FE4C9B63}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{49FE16EF-08CF-4B61-9A29-7FC57AFB6847} = {9BD1E302-52C8-4CFA-B051-40E98A20B2F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {59339A3F-43C5-4571-BA2E-35B984CA034C}

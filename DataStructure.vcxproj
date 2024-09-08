@@ -24,6 +24,7 @@
     <ProjectGuid>{49fe16ef-08cf-4b61-9a29-7fc57afb6847}</ProjectGuid>
     <RootNamespace>DataStructure</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Sorting</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -127,7 +128,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\MyString\Assert.cpp" />
+    <ClCompile Include="..\MyString\MyString.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Recursion.cpp" />
+    <ClCompile Include="Search.cpp" />
+    <ClCompile Include="Sorting.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\MyString\MyString.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

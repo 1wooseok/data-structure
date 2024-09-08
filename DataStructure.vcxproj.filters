@@ -13,10 +13,40 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Sorting">
+      <UniqueIdentifier>{17eb04e4-f39c-4080-9d59-32e711d9bb02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\StringADT">
+      <UniqueIdentifier>{7965b394-2d3f-42c0-8147-4f1fd80b0c73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Recursion">
+      <UniqueIdentifier>{e97755ef-c091-4f7f-862e-dbdd3319b8d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Search">
+      <UniqueIdentifier>{af5f871d-89d2-4160-9645-b92d20c0faf3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\MyString\Assert.cpp">
+      <Filter>Source Files\StringADT</Filter>
     </ClCompile>
+    <ClCompile Include="..\MyString\MyString.cpp">
+      <Filter>Source Files\StringADT</Filter>
+    </ClCompile>
+    <ClCompile Include="Recursion.cpp">
+      <Filter>Source Files\Recursion</Filter>
+    </ClCompile>
+    <ClCompile Include="Search.cpp">
+      <Filter>Source Files\Search</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Sorting.cpp">
+      <Filter>Source Files\Sorting</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\MyString\MyString.h">
+      <Filter>Source Files\StringADT</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
