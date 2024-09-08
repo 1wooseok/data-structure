@@ -128,15 +128,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\MyString\Assert.cpp" />
-    <ClCompile Include="..\MyString\MyString.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Recursion.cpp" />
     <ClCompile Include="Search.cpp" />
     <ClCompile Include="Sorting.cpp" />
+    <ClCompile Include="MyString.cpp" />
+    <ClCompile Include="MyStringTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\MyString\MyString.h" />
+    <ClInclude Include="MyString.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

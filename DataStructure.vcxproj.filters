@@ -16,23 +16,17 @@
     <Filter Include="Source Files\Sorting">
       <UniqueIdentifier>{17eb04e4-f39c-4080-9d59-32e711d9bb02}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\StringADT">
-      <UniqueIdentifier>{7965b394-2d3f-42c0-8147-4f1fd80b0c73}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Recursion">
       <UniqueIdentifier>{e97755ef-c091-4f7f-862e-dbdd3319b8d2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Search">
       <UniqueIdentifier>{af5f871d-89d2-4160-9645-b92d20c0faf3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\String">
+      <UniqueIdentifier>{9b8ad4cc-707e-4c09-af84-02d360456468}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\MyString\Assert.cpp">
-      <Filter>Source Files\StringADT</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MyString\MyString.cpp">
-      <Filter>Source Files\StringADT</Filter>
-    </ClCompile>
     <ClCompile Include="Recursion.cpp">
       <Filter>Source Files\Recursion</Filter>
     </ClCompile>
@@ -43,10 +37,16 @@
     <ClCompile Include="Sorting.cpp">
       <Filter>Source Files\Sorting</Filter>
     </ClCompile>
+    <ClCompile Include="MyString.cpp">
+      <Filter>Source Files\String</Filter>
+    </ClCompile>
+    <ClCompile Include="MyStringTest.cpp">
+      <Filter>Source Files\String</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\MyString\MyString.h">
-      <Filter>Source Files\StringADT</Filter>
+    <ClInclude Include="MyString.h">
+      <Filter>Source Files\String</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
