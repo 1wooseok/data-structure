@@ -39,11 +39,18 @@ float SparsePolynomial::Eval(float x)
 	float temp = 0.0f;
 
 	// TODO:
+	for (int i = 0; i < num_terms_; ++i)
+	{
+		float coef = terms_[i].coef;
+		int exp = terms_[i].exp;
+
+		temp += (coef * std::powf(x, float(exp)));
+	}
 
 	return temp;
 }
 
-SparsePolynomial SparsePolynomial::Add(const SparsePolynomial& poly)
+SparsePolynomial SparsePolynomial::SimpleAdd(const SparsePolynomial& poly)
 {
 	// this와 poly의 terms_가 exp의 오름차순으로 정렬되어 있다고 가정
 	// 하나의 다항식 안에 exp가 중복되는 term이 없다라고 가정 (한 exp는 하나의 term만 존재)
@@ -56,7 +63,113 @@ SparsePolynomial SparsePolynomial::Add(const SparsePolynomial& poly)
 
 	SparsePolynomial temp;
 
-	// TODO:
+	int t1_max_exp = -1;
+	for (int i = 0; i < num_terms_; ++i)
+	{
+		int exp = terms_[i].exp;
+		if (t1_max_exp < exp)
+		{
+			t1_max_exp = exp;
+		}
+	}
+	int t2_max_exp = -1;
+	for (int i = 0; i < poly.num_terms_; ++i)
+	{
+		int exp = poly.terms_[i].exp;
+		if (t2_max_exp < exp)
+		{
+			t2_max_exp = exp;
+		}
+	}
+	int max_exp = (t1_max_exp > t2_max_exp ? t1_max_exp : t2_max_exp) + 1;
+
+	float* t1 = new float[max_exp] { 0.0f, };
+	for (int i = 0; i < num_terms_; ++i)
+	{
+		int exp = terms_[i].exp;
+		float coef = terms_[i].coef;
+		if (coef > 0.0f)
+		{
+			t1[exp] = coef;
+		}
+	}
+	float* t2 = new float[max_exp] { 0.0f };
+	for (int i = 0; i < poly.num_terms_; ++i)
+	{
+		int exp = poly.terms_[i].exp;
+		float coef = poly.terms_[i].coef;
+		if (coef > 0.0f)
+		{
+			t2[exp] = coef;
+		}
+	}
+
+	for (int i = 0; i < max_exp; ++i)
+	{
+		float sum = t1[i] + t2[i];
+		if (sum > 0.0f)
+		{
+			temp.NewTerm(sum, i);
+		}
+	}
+
+	delete[] t2;
+	delete[] t1;
+
+	return temp;
+}
+
+SparsePolynomial SparsePolynomial::Add(const SparsePolynomial& poly)
+{
+	// this와 poly의 terms_가 exp의 오름차순으로 정렬되어 있다고 가정
+	// 하나의 다항식 안에 exp가 중복되는 term이 없다라고 가정 (한 exp는 하나의 term만 존재)
+
+	SparsePolynomial temp;
+
+	int t1 = 0;
+	int t2 = 0;
+
+	size_t max_length = num_terms_ > poly.num_terms_ ? num_terms_ : poly.num_terms_;
+
+	while (!(t1 == max_length || t2 == max_length))
+	{
+		int t1_exp = terms_[t1].exp;
+		int t2_exp = poly.terms_[t2].exp;
+		float t1_coef = terms_[t1].coef;
+		float t2_coef = poly.terms_[t2].coef;
+
+		if (t1 == num_terms_)
+		{
+			temp.NewTerm(t2_coef, t2_exp);
+			++t2;
+			continue;
+		}
+		else if (t2 == poly.num_terms_)
+		{
+			temp.NewTerm(t1_coef, t1_exp);
+			++t1;
+			continue;
+		}
+
+		if (t1_exp == t2_exp)
+		{
+			float sum = t1_coef + t2_coef;
+			temp.NewTerm(sum, t1_exp);
+
+			++t1;
+			++t2;
+		}
+		else if (t1_exp < t2_exp)
+		{
+			temp.NewTerm(t1_coef, t1_exp);
+			++t1;
+		}
+		else
+		{
+			temp.NewTerm(t2_coef, t2_exp);
+			++t2;
+		}
+	}
 
 	return temp;
 }

@@ -10,7 +10,7 @@ int main()
 
 	p1.NewTerm(1, 0);		// 1 * x^0 = 1
 	p1.NewTerm(1.5f, 1);	// 1.5 * x^1
-	p1.NewTerm(2, 2);		// 2 * x^2
+	p1.NewTerm(2, 2);		// 2 * x^2Z
 
 	p1.Print(); // 1 + 1.5*x^1 + 2*x^2
 

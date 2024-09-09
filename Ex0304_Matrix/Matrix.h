@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#ifndef MATRIX_H
+#define MATRIX_H
 class Matrix
 {
 public:
@@ -9,7 +11,7 @@ public:
 
 	~Matrix();
 
-	void SetValue(int row, int col, float value);
+	void SetValue(int row, int col, float value) const;
 
 	float GetValue(int row, int col) const;
 
@@ -24,3 +26,4 @@ private:
 	int num_rows_ = 0;
 	int num_cols_ = 0;
 };
+#endif

@@ -24,6 +24,8 @@ public:
 
 	float Eval(float x);
 
+	SparsePolynomial SimpleAdd(const SparsePolynomial& poly);
+
 	SparsePolynomial Add(const SparsePolynomial& poly);
 
 	void Print();
