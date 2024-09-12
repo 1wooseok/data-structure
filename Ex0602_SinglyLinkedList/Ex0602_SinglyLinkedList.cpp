@@ -8,7 +8,7 @@ int main()
 {
 	SinglyLinkedList<int> list;
 
-	list.SetPrintDebug(false);
+	list.SetPrintDebug(true);
 
 	list.PushFront(3);
 	list.PushBack(4);
@@ -21,10 +21,11 @@ int main()
 	// copy constructor
 	{
 		SinglyLinkedList<int> list2 = list; // copy constructor
-		list2.SetPrintDebug(false);
+		list2.SetPrintDebug(true);
 		list2.Print();
 	}
 
+	// TODO: comment out
 	list.Reverse();
 	list.Print();
 

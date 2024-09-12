@@ -3,6 +3,7 @@
 #include <cassert>
 #include <iostream>
 #include <iomanip>
+#include <cstring>
 
 template<typename T>
 class Queue // Circular Queue
@@ -36,7 +37,7 @@ public:
 	T& Front() const
 	{
 		assert(!IsEmpty());
-
+		// TODO: ?? 왜지?
 		return queue_[(front_ + 1) % capacity_]; // 주의 + 1
 	}
 
@@ -49,36 +50,44 @@ public:
 
 	int Size() const
 	{
-		// 하나하나 세는 방법 보다는 경우를 따져서 바로 계산하는 것이 빠릅니다.
-
-		// if-else-if-else로 구현하는 경우
-		//if (...)
-		//	return ...;
-		//else if (...)
-		//	return ...;
-		//else
-		//	return 0;
-
-		// 또는 if-else 하나로도 구현 가능합니다.
-		// if (...)
-		//	  return ...;
-		// else
-		//    return ...;
-
-		return 0; // TODO: 임시
+		if (rear_ > front_)
+		{
+			return rear_ - front_;
+		}
+		else if (rear_ < front_)
+		{
+			return capacity_ - (front_ - rear_);
+		}
+		else
+		{
+			return 0;
+		}
 	}
 
 	void Resize() // 2배씩 증가
 	{
-		// 조언
-		// - 새로운 개념이 항상 그렇듯 원형 큐도 처음에는 어렵고 나중에는 당연해집니다.
-		// - 처음 공부하실 때 답을 맞추려고 하지 마시고 "어떻게 디버깅을 잘 할까?"를 찾으세요.
-		// - 부지런히 여러가지 출력해보고 "출력하는 도구(예: 배열 출력)"도 만들어서 사용해보고
-		// - 머리도 쓰고 고민도 하다 보면 인생을 지탱해줄 능력을 갖추게 됩니다.
-		// - 힘들면 디스코드에서 조금씩 도움 받으시는 것도 좋아요.
+		if (!IsFull()) return;
 
-		// TODO: 하나하나 복사하는 방식은 쉽게 구현할 수 있습니다. 
-		//       (도전) 경우를 나눠서 memcpy()로 블럭 단위로 복사하면 더 효율적입니다.
+		int new_size = capacity_ * 2;
+		T* temp = new T[new_size];
+		if (rear_ > front_)
+		{
+			memcpy(temp, queue_, sizeof(T) * capacity_);
+		}
+		else if (rear_ < front_)
+		{
+			memcpy(temp, queue_, sizeof(T) * (rear_ + 1));
+			
+			int count = capacity_ - (front_ + 1);
+			int next_front = new_size - count - 1;
+			memcpy(&temp[next_front + 1], &queue_[front_ + 1], sizeof(T) * (capacity_ - (front_ + 1)));
+
+			front_ = next_front;
+		}
+		
+		delete[] queue_;
+		queue_ = temp;
+		capacity_ = new_size;
 	}
 
 	void Enqueue(const T& item) // 맨 뒤에 추가, Push()
@@ -87,6 +96,8 @@ public:
 			Resize();
 
 		// TODO:
+		rear_ = (rear_ + 1) % capacity_;
+		queue_[rear_] = item;
 	}
 
 	void Dequeue() // 큐의 첫 요소 삭제, Pop()
@@ -94,6 +105,7 @@ public:
 		assert(!IsEmpty());
 
 		// TODO: 
+		front_ = (front_ + 1) % capacity_;
 	}
 
 	void Print()

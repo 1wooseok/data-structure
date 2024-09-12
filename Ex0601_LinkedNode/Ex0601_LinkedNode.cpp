@@ -17,11 +17,24 @@ struct Node
 void RecurPrint(Node* node)
 {
 	// TODO:
+	if (node == nullptr)
+	{
+		return;
+	}
+
+	cout << *node << endl;
+	RecurPrint(node->next);
 }
+
 
 void IterPrint(Node* node)
 {
-	// TODO:
+	Node* p = node;
+	while (p != nullptr)
+	{
+		cout << *p << endl;
+		p = p->next;
+	}
 }
 
 int main()
@@ -65,6 +78,10 @@ int main()
 	// 연결 관계 만들어 주기
 	// first->next = second;
 	// TODO:
+	first->next = second;
+	second->next = third;
+	third->next = fourth;
+	fourth->next = fifth;
 	// 마지막
 
 	//cout << *(first) << endl;
@@ -78,22 +95,41 @@ int main()
 
 	// 임시 변수 사용
 	//{
-	//	Node* current = first;
-	//	cout << *current << endl;
+	Node* current = first;
+	cout << *current << endl;
+ 
+	current = current->next;
+	cout << *current << endl;
+
+	current = current->next;
+	cout << *current << endl;
+
+	current = current->next;
+	cout << *current << endl;
+
+	current = current->next;
+	cout << *current << endl;
 
 	// TODO:
 	//	cout << endl;
 	//}
 
 	// 재귀 호출 이용
-	//RecurPrint(first);
-	//cout << endl;
+	RecurPrint(first);
+	cout << endl;
 
 	// 반복문 이용
-	//IterPrint(first);
-	//cout << endl;
+	IterPrint(first);
+	cout << endl;
 
 	// TODO: 데이터 삭제
+	Node* p = first;
+	while (p != nullptr)
+	{
+		Node* next = p->next;
+		delete p;
+		p = next;
+	}
 
 	return 0;
 }

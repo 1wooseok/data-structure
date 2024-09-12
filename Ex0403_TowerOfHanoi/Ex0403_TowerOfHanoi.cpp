@@ -46,6 +46,17 @@ void MoveDisk(int from, int to)
 void RecurMoveDisks(int n, int from, int temp, int to)
 {
 	// TODO:
+	if (n == 0)
+	{
+		return;
+	}
+
+	// 1. n-1개를 임시 막대로 이동
+	RecurMoveDisks(n - 1, from, to, temp);
+	// 2. 가장 마지막거를 최종 목적지로 이동
+	MoveDisk(from, to);
+	// 3. n-1개를 최종 목적지로 이동
+	RecurMoveDisks(n - 1, temp, from, to);
 }
 
 int main()
