@@ -25,6 +25,12 @@ int main()
 	list.PushBack(5);
 	list.Print();
 
+	cout << endl;
+	auto test = list;
+	cout << "COPY ::" << endl;
+	cout << endl;
+	test.Print();
+
 	list.Reverse();
 	list.Print();
 
