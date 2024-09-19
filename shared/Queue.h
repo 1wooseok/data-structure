@@ -37,8 +37,8 @@ public:
 	T& Front() const
 	{
 		assert(!IsEmpty());
-		// TODO: ?? 왜지?
-		return queue_[(front_ + 1) % capacity_]; // 주의 + 1
+		// TODO:
+		return queue_[(front_ + 1) % capacity_]; //
 	}
 
 	T& Rear() const

@@ -43,7 +43,6 @@ int main()
 	cout << "Sum: " << tree.Sum() << endl;//Sum: 21
 	cout << "Height: " << tree.Height() << endl;//Height : 4
 
-
 	// Tree traversal methods
 
 	cout << "Preorder" << endl; // 6 2 1 3 5 4
