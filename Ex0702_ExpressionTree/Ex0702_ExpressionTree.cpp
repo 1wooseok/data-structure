@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <cassert>
 
 #include "../shared/Stack.h"
 #include "../shared/Queue.h"
@@ -32,17 +33,118 @@ public:
 	int Evaluate(Node* node)
 	{
 		// TODO: 트리에 저장된 수식의 결과값을 계산
-		return 0;
+		if (node == nullptr)
+		{
+			return 0;
+		}
+		// inorder?
+		// 5 + (3 - 2) * 4 = 9;
+		// 
+		//    +
+		//	/   \
+		// 5     *
+		//	    / \
+		//	   -   4
+		//	  / \
+		//	 3   2
+		// (5 + ((3 - 2) * 4)) < -출력 예시
+
+		Stack<Node*> s1;
+		Stack<Node*> s2;
+
+		s1.Push(node);
+
+		while (!s1.IsEmpty())
+		{
+			Node* current = s1.Top();
+			s1.Pop();
+
+			s2.Push(current);
+
+			if (current->left != nullptr)
+			{
+				s1.Push(current->left);
+			}
+
+			if (current->right != nullptr)
+			{
+				s1.Push(current->right);
+			}
+		}
+
+		Queue<char> post_queue;
+		while (!s2.IsEmpty())
+		{
+			post_queue.Enqueue(s2.Top()->item);
+			s2.Pop();
+		}
+
+		return EvalPostfix(post_queue);
 	}
 
 	void Infix() { Infix(root_); cout << endl; }
 	void Infix(Node* node) {
+		if (node == nullptr)
+		{
+			return;
+		}
 		// TODO: 수식을 Infix 형식으로 출력 (괄호 포함)
+		Stack<Node*> s;
+
+		Node* current = node;
+		while (!s.IsEmpty() || current != nullptr)
+		{
+			while (current != nullptr)
+			{
+				s.Push(current);
+				current = current->left;
+			}
+
+			current = s.Top();
+			s.Pop();
+			
+			std::cout << current->item;
+
+			current = current->right;
+		}
 	}
 
 	void Postfix() { Postfix(root_);  cout << endl; }
 	void Postfix(Node* node) {
+		if (node == nullptr)
+		{
+			return;
+		}
+
 		// TODO: 수식을 Postfix 형식으로 출력
+		Stack<Node*> s1;
+		Stack<Node*> s2;
+
+		s1.Push(node);
+
+		while (!s1.IsEmpty())
+		{
+			Node* current = s1.Top();
+			s1.Pop();
+
+			s2.Push(current);
+
+			if (current->left != nullptr)
+			{
+				s1.Push(current->left);
+			}
+
+			if (current->right != nullptr)
+			{
+				s1.Push(current->right);
+			}
+		}
+
+		while (!s2.IsEmpty())
+		{
+			std::cout << s2.Top()->item;
+			s2.Pop();
+		}
 	}
 
 	// Infix -> postfix -> expression tree
@@ -51,7 +153,10 @@ public:
 		// Infix -> Postfix (예제 재사용)
 		Queue<char> q;
 		for (int i = 0; infix[i] != '\0'; i++)
+		{
 			q.Enqueue(infix[i]);
+		}
+
 		cout << "  Infix: ";
 		q.Print();
 		Queue<char> postfix;
@@ -71,10 +176,25 @@ public:
 			if (c >= '0' && c <= '9')
 			{
 				// TODO:
+				Node* temp = new Node;
+				temp->item = c;
+				temp->left = nullptr;
+				temp->right = nullptr;
 			}
 			else
 			{
 				// TODO:
+				Node* r = s.Top();
+				s.Pop();
+				Node* l = s.Top();
+				s.Pop();
+
+				Node* temp = new Node;
+				temp->item = c;
+				temp->left = l;
+				temp->right = r;
+
+				s.Push(temp);
 			}
 		}
 
@@ -86,7 +206,7 @@ int main()
 {
 	using Node = ExpressionTree::Node;
 
-	// 5 + (3 - 2) * 4
+	// 5 + (3 - 2) * 4 = 9;
 	// 
 	//    +
 	//	/   \
@@ -122,14 +242,15 @@ int main()
 
 	// 수식 트리에 저장되어 있는 수식을 실제로 계산해서 그 결과를 출력합니다.
 	cout << "Evaluated = " << tree.Evaluate() << endl; // Evaluated = 9
-
-	// 수식 트리에 저장되어 있는 수식을 Infix 방식으로 출력합니다.
-	cout << "  Infix: ";
-	tree.Infix();   // (5+((3-2)*4)) <- 출력 예시
+	assert(tree.Evaluate() == 9);
 
 	// 수식 트리에 저장되어 있는 수식을 Postfix 방식으로 출력합니다.
 	cout << "Postfix: ";
 	tree.Postfix(); // 532-4*+ <- 출력 예시
+
+	// 수식 트리에 저장되어 있는 수식을 Infix 방식으로 출력합니다.
+	cout << "  Infix: ";
+	tree.Infix();   // (5+((3-2)*4)) <- 출력 예시
 
 	cout << endl;
 

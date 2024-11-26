@@ -234,6 +234,24 @@ public:
 		}
 	}
 
+	void MyIterPostorder()
+	{
+		if (root_ == nullptr)
+		{
+			return;
+		}
+
+		Stack<Node*> s1;
+		Stack<Node*> s2;
+
+		s1.Push(root_);
+
+		while (!s1.IsEmpty())
+		{
+
+		}
+	}
+
 	void IterPostorder()
 	{
 		if (!root_) return;

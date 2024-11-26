@@ -63,15 +63,10 @@ public:
 		size_ += 1;
 		int current = size_; // 마지막에 추가가될 위치 (인덱스)
 
-		while (current != 1 /* && TODO */) // 부모 위치의 값이 추가하려는 값보다 작다면
+		while (current != 1 && heap_[current / 2] < item /* && TODO */) // 부모 위치의 값이 추가하려는 값보다 작다면
 		{
-			// 부모 위치의 값을 자식 위치로 복사해서 내린다.
-			// TODO:
-
-			//cout << "Current = " << current << endl;
-			//Print();
-
-			// TODO:
+			heap_[current] = heap_[current / 2];
+			current /= 2;
 		}
 
 		heap_[current] = item; // 최종적으로 결정된 위치에 복사
@@ -97,18 +92,37 @@ public:
 		{
 			// left, right 중에서 더 큰 자식의 인덱스를 찾는다. 이때 자식이 하나라면 찾을 필요 없음
 			// TODO:
+			int greater_index = -1;
+
+			if (child == size_)
+			{
+				greater_index = child;
+			} 
+			else 
+			{
+				greater_index = heap_[child] > heap_[child + 1] ? child : child + 1;
+			}
+
+			assert(greater_index != -1);
 
 			// 마지막 값이 더 큰 자식의 값 이상이면 더이상 적절한 위치를 찾을 필요가 없기 때문에 루프 중단
 			// TODO:
-
+			if (heap_[greater_index] <= last_item) 
+			{
+				break;
+			}
+			
 			// 자식 값을 부모 위치로 복사, 
-			// TOD:
+			// TODO:
+			heap_[current] = heap_[greater_index];
 
 			//cout << "Current = " << current << ", child = " << child << endl;
 			//Print();
 
 			// 그 자식 위치로 current 인덱스 변경, child 인덱스도 그 다음 자식 위치로 변경
 			// TODO:
+			current = greater_index;
+			child = current * 2;
 		}
 
 		heap_[current] = last_item;
