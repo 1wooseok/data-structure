@@ -77,7 +77,22 @@ public:
 
 	Item* IterGet(const K& key)
 	{
-		// TODO:
+		Node* p = root_;
+		while (p != nullptr)
+		{
+			if (p->item.key == key)
+			{
+				return &(p->item);
+			} 
+			else if (key > p->item.key) 
+			{
+				p = p->right;
+			} 
+			else 
+			{
+				p = p->left;
+			}
+		}
 
 		return nullptr; // No matching
 	}
@@ -91,9 +106,24 @@ public:
 
 	Node* Insert(Node* node, const Item& item)
 	{
-		// 힌트: RecurGet()
-
 		// TODO:
+		if (node == nullptr)
+		{
+			return new Node{ item, nullptr, nullptr };
+		}
+
+		if (item.key < node->item.key)
+		{
+			node->left = Insert(node->left, item);
+		}
+		else if (item.key > node->item.key)
+		{
+			node->right = Insert(node->right, item);
+		}
+		else
+		{
+			node->item = item;
+		}
 
 		return node;
 	}
@@ -101,6 +131,36 @@ public:
 	void IterInsert(const Item& item)
 	{
 		// TODO:
+		Node* node = root_;
+
+		while (node != nullptr)
+		{
+			if (node->item.key == item.key)
+			{
+				node->item.key = item.key;
+				return;
+			}
+
+			Node* next = item.key > node->item.key ? node->right : node->left;
+
+			if (next == nullptr)
+			{
+				Node* new_node = new Node{ item, nullptr, nullptr };
+
+				if (item.key > node->item.key)
+				{
+					node->right = new_node;
+				}
+				else
+				{
+					node->left = new_node;
+				}
+
+				return;
+			}
+
+			node = next;
+		}
 	}
 
 	Node* MinKeyLeft(Node* node)
@@ -120,7 +180,7 @@ public:
 
 	Node* Remove(Node* node, const K& key)
 	{
-		if (!node) return node;
+		if (node == nullptr) return nullptr;
 
 		if (key < node->item.key)
 			node->left = Remove(node->left, key);
@@ -128,7 +188,27 @@ public:
 			node->right = Remove(node->right, key);
 		else
 		{
-			// TODO:
+			if (node->left == nullptr)
+			{
+				Node* temp = node->right;
+				delete node;
+				return temp;
+			}
+			else if (node->right == nullptr)
+			{
+				Node* temp = node->left;
+				delete node;
+				return temp;
+			}
+			else
+			{
+				Node* min = MinKeyLeft(node);
+				
+				assert(min != nullptr);
+				
+				node->item = min->item;
+				node->right = Remove(node->right, min->item.key);
+			}
 		}
 
 		return node;
@@ -159,9 +239,10 @@ template<typename K, typename V>
 void BinarySearchTree<K, V>::Print2D()
 {
 	using namespace std;
-	cout << "Height = " << Height() << endl;
+	int height = Height();
+	cout << "Height = " << height << endl;
 	int i = 0;
-	while (i < Height()) {
+	while (i < height) {
 		PrintLevel(i);
 		i++;
 		cout << endl;

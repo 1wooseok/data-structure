@@ -31,6 +31,7 @@ int main()
 	cout << bst.RecurGet(4)->value << endl;
 
 	bst.Remove(999); // 없는 키에대해 삭제
+
 	bst.Print2D();
 
 	for (int i : {5, 4, 7, 3})
