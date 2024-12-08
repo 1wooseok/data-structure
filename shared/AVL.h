@@ -37,15 +37,19 @@ public:
 	Node* RotateLeft(Node* parent)
 	{
 		// TODO:
-
-		return nullptr;
+		Node* child = parent->right;
+		parent->right = child->left;
+		child->left = parent;
+		return child;
 	}
 
 	Node* RotateRight(Node* parent)
 	{
 		// TODO:
-
-		return nullptr;
+		Node* child = parent->left;
+		parent->left = child->right;
+		child->right = parent;
+		return child;
 	}
 
 	void Insert(const Item& item)

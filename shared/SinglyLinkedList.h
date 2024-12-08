@@ -69,7 +69,7 @@ public:
 	{
 		assert(first_);
 
-		return T(); // TODO: 수정
+		return first_->item; // TODO: 수정
 	}
 
 	T Back()
@@ -93,12 +93,13 @@ public:
 		{
 			if (current->item == item)
 			{
-				return current;
+				break;
 			}
+			
 			current = current->next;
 		}
 
-		return nullptr;
+		return current;
 	}
 
 	void InsertBack(Node* node, T item)

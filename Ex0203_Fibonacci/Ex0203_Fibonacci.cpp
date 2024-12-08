@@ -13,17 +13,28 @@ int Fibonacci(int n)
 		return 1; // F1 = 1
 	else
 	{
-		int fn = 0;
-
 		// TODO:
+		int arr[2] = { 0, 1 };
 
-		return fn;
+		for (int i = 2; i < n; ++i)
+		{
+			int temp = arr[1];
+			arr[1] += arr[0];
+			arr[0] = temp;
+		}
+
+		return arr[0] + arr[1];
 	}
 }
 
 int RecurFibonacci(int n)
 {
-	return 0;
+	if (n == 0)
+		return 0;
+	else if (n == 1)
+		return 1;
+	else
+		return RecurFibonacci(n - 1) + RecurFibonacci(n - 2);
 }
 
 int main()

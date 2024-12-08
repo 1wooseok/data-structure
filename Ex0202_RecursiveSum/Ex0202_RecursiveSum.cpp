@@ -22,8 +22,14 @@ int RecurSum(int* arr, int n)
 	= ((1 + 2 + ... 8) + 9) + 10
 	= ...
 	*/
+	assert(n >= 0); // 'n' must be natural number.
 
-	return 0; // <- TODO: 
+	if (n == 0)
+	{
+		return 0;
+	}
+
+	return *arr + RecurSum(arr + 1, n - 1); // <- TODO: 
 }
 
 int main()

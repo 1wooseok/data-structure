@@ -40,6 +40,8 @@ public:
 
 	void Clear() // 모두 지워야(delete) 합니다.
 	{
+		assert(first_->left == nullptr);
+
 		// TODO:
 		while (first_ != nullptr)
 		{
@@ -54,11 +56,13 @@ public:
 
 	int Size()
 	{
+		assert(first_->left == nullptr);
+
 		int size = 0;
 
 		// TODO:
 		Node* p = first_;
-
+		
 		while (p != nullptr)
 		{
 			++size;

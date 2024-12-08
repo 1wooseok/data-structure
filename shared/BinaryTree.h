@@ -103,14 +103,16 @@ public:
 
 	void DeleteTree(Node* node)
 	{
-		if (node)
+		if (node == nullptr)
 		{
-			// TODO: 힌트 Post-order
-			DeleteTree(node->left);
-			DeleteTree(node->right);
-			delete node;
-			node = nullptr;
+			return;
 		}
+
+		// TODO: 힌트 Post-order
+		DeleteTree(node->left);
+		DeleteTree(node->right);
+		delete node;
+		node = nullptr;
 	}
 
 	void Preorder() { Preorder(root_); }
