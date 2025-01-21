@@ -2,6 +2,7 @@
 
 #include "../shared/Stack.h"
 #include "../shared/Queue.h"
+#include <cassert>
 
 using namespace std;
 
@@ -78,8 +79,32 @@ void InfixToPostfix(Queue<char>& q, Queue<char>& output)
 
 		cout << c << endl;
 
+		if (c >= '0' && c <= '9')
+			output.Enqueue(c);
+		else if (c == '(')
+			s.Push(c);
+		else if (c == ')')
+		{
+			while (s.Top() != '(')
+			{
+				output.Enqueue(s.Top());
+				s.Pop();
+			}
+			assert(s.Top() == '(');
+			s.Pop(); // pop '('
+		}
+		else
+		{
+			while (!s.IsEmpty() && Prec(s.Top()) >= Prec(c))
+			{
+				output.Enqueue(s.Top());
+				s.Pop();
+			}
+			s.Push(c);
+		}
+
 		/*
-		if (c >= '0' && c <= '9') // 숫자(피연산자)라면 output에 추가
+		// if (c >= '0' && c <= '9') // 숫자(피연산자)라면 output에 추가
 			...;
 		else if (c == '(') // 여는 괄호라면 스택에 추가
 			...;
@@ -121,30 +146,35 @@ int EvalPostfix(Queue<char>& q)
 
 		cout << c << endl;
 
-		/*
 		if (c != '+' && c != '-' && c != '*' && c != '/')
 		{
 			// 입력이 연산자가 아니면 일단 저장
 			// 문자를 숫자로 변환 c - '0' 예: int('9' - '0') -> 정수 9
+			s.Push(c - '0');
 		}
 		else
 		{
 			cout << "Operator: " << c << endl;
 
 			// 입력이 연산자이면 스택에서 꺼내서 연산에 사용
+			int n1 = s.Top();
+			s.Pop();
+
+			int n2 = s.Top();
+			s.Pop();
 
 			if (c == '+') {
-				...
+				s.Push(n1 + n2);
 			}
 			else if (c == '-') {
-				...
+				s.Push(n1 - n2);
 			}
 			else if (c == '*') {
-				...
+				s.Push(n1 * n2);
 			}
 			else if (c == '/')
 			{
-				...
+				s.Push(n1 / n2);
 			}
 			else
 			{
@@ -152,7 +182,6 @@ int EvalPostfix(Queue<char>& q)
 				exit(-1); // 강제 종료
 			}
 		}
-		*/
 
 		cout << "Stack: ";
 		s.Print();

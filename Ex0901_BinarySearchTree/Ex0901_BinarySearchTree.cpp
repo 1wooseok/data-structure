@@ -25,10 +25,15 @@ int main()
 
 	// 탐색
 	cout << bst.RecurGet(5)->value << endl; // if(bst.RecurGet(5)) cout << bst.RecurGet(5)->value << endl;
+	assert(bst.RecurGet(5)->value == ('A' + 5));
 	cout << bst.RecurGet(3)->value << endl;
+	assert(bst.RecurGet(3)->value == ('A' + 3));
 	cout << bst.RecurGet(7)->value << endl;
+	assert(bst.RecurGet(7)->value == ('A' + 7));
 	cout << bst.RecurGet(1)->value << endl;
+	assert(bst.RecurGet(1)->value == ('A' + 1));
 	cout << bst.RecurGet(4)->value << endl;
+	assert(bst.RecurGet(4)->value == ('A' + 4));
 
 	bst.Remove(999); // 없는 키에대해 삭제
 	bst.Print2D();

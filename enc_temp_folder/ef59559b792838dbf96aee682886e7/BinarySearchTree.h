@@ -86,9 +86,22 @@ public:
 		Node* temp = root_;
 		while (temp != nullptr)
 		{
-			if (key < temp->item.key) temp = temp->left;
-			else if (key > temp->item.key temp = temp->right;
-			else return &(temp->item.key);
+			if (temp->item.key == key)
+			{
+				return &(temp->item.key);
+			}
+			else if (key < temp->item.key)
+			{
+				temp = temp->left;
+			}
+			else if (key > temp->item.key)
+			{
+				temp = temp->right;
+			}
+			else
+			{
+				break;
+			}
 		}
 
 		return nullptr; // No matching
@@ -180,7 +193,32 @@ public:
 		else
 		{
 			// TODO:
-			// 틀림
+			if (node->left == nullptr && node->right == nullptr)
+			{
+				delete node;
+				node = nullptr;
+			}
+			else if (node->left == nullptr || node->right == nullptr)
+			{
+				if (node->left == nullptr)
+				{
+					node->item = node->right->item;
+					delete node->right;
+				}
+				else
+				{
+					node->item = node->left->item;
+					delete node->left;
+				}
+			}
+			else
+			{
+				Node* min = MinKeyLeft(node->right);
+
+				node->item = min->item;
+				delete min;
+				min = nullptr;
+			}
 		}
 
 		return node;

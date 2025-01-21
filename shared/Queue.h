@@ -64,8 +64,14 @@ public:
 		//	  return ...;
 		// else
 		//    return ...;
+		
+		// TODO: 임시
+		int size = rear_ - front_;
 
-		return 0; // TODO: 임시
+		if (size < 0)
+			return size + capacity_;
+		else
+			return size;
 	}
 
 	void Resize() // 2배씩 증가
@@ -79,6 +85,27 @@ public:
 
 		// TODO: 하나하나 복사하는 방식은 쉽게 구현할 수 있습니다. 
 		//       (도전) 경우를 나눠서 memcpy()로 블럭 단위로 복사하면 더 효율적입니다.
+		assert(IsFull());
+
+		T* new_queue = new T[capacity_ * 2];
+
+		if (rear_ < front_)
+		{
+			memcpy(new_queue, queue_, sizeof(T) * (rear_ + 1));
+
+			int copy_count = capacity_ - front_;
+			int next_front = capacity_ * 2 - copy_count;
+			memcpy(new_queue + next_front + 1, queue_ + front_ + 1, sizeof(T) * copy_count);
+			front_ = next_front;
+		}
+		else
+		{
+			memcpy(new_queue, queue_, sizeof(T) * capacity_);
+		}
+		
+		capacity_ *= 2;
+		delete[] queue_;
+		queue_ = new_queue;
 	}
 
 	void Enqueue(const T& item) // 맨 뒤에 추가, Push()
@@ -87,6 +114,9 @@ public:
 			Resize();
 
 		// TODO:
+		rear_ = (rear_ + 1) % capacity_;
+
+		queue_[rear_] = item;
 	}
 
 	void Dequeue() // 큐의 첫 요소 삭제, Pop()
@@ -94,6 +124,7 @@ public:
 		assert(!IsEmpty());
 
 		// TODO: 
+		front_ = (front_ + 1) % capacity_;
 	}
 
 	void Print()

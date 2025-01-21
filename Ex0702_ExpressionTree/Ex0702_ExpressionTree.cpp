@@ -4,6 +4,8 @@
 #include "../shared/Queue.h"
 #include "../shared/BinaryTree.h"
 
+#include <cassert>
+
 using namespace std;
 
 // Function to return precedence of operators
@@ -31,18 +33,69 @@ public:
 
 	int Evaluate(Node* node)
 	{
+		if (node == nullptr) return 0;
+
+		if ('0' <= node->item && node->item <= '9') 
+			return node->item - '0';
+		else if (node->item == '+')
+			return Evaluate(node->left) + Evaluate(node->right);
+		else if (node->item == '-') 
+			return Evaluate(node->left) - Evaluate(node->right);
+		else if (node->item == '*') 
+			return Evaluate(node->left) * Evaluate(node->right);
+		else if (node->item == '/') 
+			return Evaluate(node->left) / Evaluate(node->right);
 		// TODO: 트리에 저장된 수식의 결과값을 계산
-		return 0;
+		/*Queue<char> q;
+
+		Stack<Node*> s;
+		Node* current = node;
+		
+		while (current || !s.IsEmpty())
+		{
+			while (current)
+			{
+				s.Push(current);
+				current = current->left;
+			}
+
+			current = s.Top();
+			s.Pop();
+
+			q.Enqueue(current->item);
+
+			if (current->right)
+			{
+				s.Push(current->right);
+			}
+		}
+
+		Queue<char> post;
+		InfixToPostfix(q, post);
+		
+		return EvalPostfix(post);*/
 	}
 
 	void Infix() { Infix(root_); cout << endl; }
 	void Infix(Node* node) {
 		// TODO: 수식을 Infix 형식으로 출력 (괄호 포함)
+		if (node == nullptr) return;
+
+		if (!IsDigit(node->item)) cout << '(';
+		Infix(node->left);
+		cout << node->item;
+		Infix(node->right);
+		if (!IsDigit(node->item)) cout << ')';
 	}
 
 	void Postfix() { Postfix(root_);  cout << endl; }
 	void Postfix(Node* node) {
 		// TODO: 수식을 Postfix 형식으로 출력
+		if (node == nullptr) return;
+
+		Postfix(node->left);
+		Postfix(node->right);
+		cout << node->item;
 	}
 
 	// Infix -> postfix -> expression tree
@@ -68,14 +121,18 @@ public:
 			char c = postfix.Front();
 			postfix.Dequeue();
 
-			if (c >= '0' && c <= '9')
+			Node* new_node = new Node{ c, nullptr, nullptr };
+
+			if (c < '0' && c > '9')
 			{
 				// TODO:
+				new_node->right = s.Top();
+				s.Pop();
+				new_node->left = s.Top();
+				s.Pop();
 			}
-			else
-			{
-				// TODO:
-			}
+			
+			s.Push(new_node);
 		}
 
 		root_ = s.Top();
