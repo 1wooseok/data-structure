@@ -188,27 +188,7 @@ public:
 			node->right = Remove(node->right, key);
 		else
 		{
-			if (node->left == nullptr)
-			{
-				Node* temp = node->right;
-				delete node;
-				return temp;
-			}
-			else if (node->right == nullptr)
-			{
-				Node* temp = node->left;
-				delete node;
-				return temp;
-			}
-			else
-			{
-				Node* min = MinKeyLeft(node);
-				
-				assert(min != nullptr);
-				
-				node->item = min->item;
-				node->right = Remove(node->right, min->item.key);
-			}
+			// TODO: 틀림
 		}
 
 		return node;
